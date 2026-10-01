@@ -6,7 +6,12 @@
 
 
 // ------------- CODE -------------
+#include <cstdlib>
+#include <ctime>
+#include <fstream>
 #include <iostream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -14,9 +19,38 @@ using namespace std;
 
 
 // Main function
-// https://en.cppreference.com/w/cpp/language/main_function.html
 int main() {
-  cout << "Hello, World!" << endl;
+  vector<string> names;
+  ifstream input("names.txt");
+
+  // if (!input) {
+  //   cout << "Could not open names.txt.\n";
+  //   return 1;
+  // }
+
+  string name;
+  while (getline(input, name)) {
+    if (!name.empty()) {
+      names.push_back(name);
+    }
+  }
+
+  // if (names.empty()) {
+  //   cout << "No names found.\n";
+  //   return 0;
+  // }
+
+  srand(static_cast<unsigned int>(time(nullptr)));
+  int group_number = 1;
+  while (!names.empty()) {
+    cout << "Group " << group_number++ << ":\n";
+    for (int i = 0; i < 3 && !names.empty(); i++) {
+      size_t random_index = static_cast<size_t>(rand()) % names.size();
+      cout << "  " << names[random_index] << '\n';
+      names.erase(names.begin() + random_index);
+    }
+  }
+
   return 0;
 }
 
@@ -25,30 +59,29 @@ int main() {
 
 // ------------- DESIGN -------------
 /* 
-Program Name:
+Program Name: Random Name Groups
 
 Program Description:
+Read names from names.txt, shuffle them, and display groups of up to three.
 
 Design:
 A. INPUT
-Define the input variables including name data type. 
+Input file names.txt; each non-empty line is stored as a string in a vector.
 
 B. OUTPUT
-Define the output variables including data types. 
+Group numbers and each name are printed to the screen.
 
 C. CALCULATIONS
-Describe calculations used by algorithms in step D.  
-List all formulas. 
-If there are no calculations needed, state there are no calculations.
+There are no arithmetic formulas beyond calculating group numbers and choosing
+random shuffle indexes.
 
 D. LOGIC and ALGORITHMS
-Design the logic of your program using pseudocode or flowcharts. 
-Use conditionals, loops, functions or array constructs.
-List the steps in transforming inputs into outputs. 
-https://github.com/Glen-Sasek-PCC-Instructor/2025-06-22/blob/main/Pseudocode-Reference.txt
+1. Open names.txt and read each non-empty line into a vector of strings.
+2. For each group, randomly select and remove up to three remaining names.
+3. Continue until all names have been printed; the last group may contain fewer names.
 
 
 SAMPLE RUNS
-Copy from assignment document.
+Output order changes each time the program runs.
 
 */

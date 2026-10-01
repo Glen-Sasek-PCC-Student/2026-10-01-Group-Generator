@@ -1,0 +1,16 @@
+Group 1:
+  Ali
+  Crystal
+  Jacob
+Group 2:
+  Daniel
+  Rithysak
+  Heidi
+Group 3:
+  Hugon
+  Tyler
+  Chris
+Group 4:
+  Mason
+  Sky
+  Spencer
